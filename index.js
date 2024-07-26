@@ -16,11 +16,25 @@ app.use(bodyParser.json())
 // }
 // app.use(cors(corseOption))
 // app.use(cors())
-app.use(cors({
-  origin: 'https://mern-stack-fe-voosh-2.onrender.com',
+
+const allowedOrigins = [
+  'https://mern-stack-fe-voosh.vercel.app',
+  'https://mern-stack-fe-voosh-2.onrender.com'
+];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true
-}));
+};
+
+app.use(cors(corsOptions));
 dotenv.config()
 app.use(express.json())
 
