@@ -15,7 +15,10 @@ app.use(bodyParser.json())
 //     optionsSuccessStatus: 200
 // }
 // app.use(cors(corseOption))
-app.use(cors())
+// app.use(cors())
+app.use(cors({
+  origin: 'https://mern-stack-fe-voosh.vercel.app'
+}));
 dotenv.config()
 app.use(express.json())
 
